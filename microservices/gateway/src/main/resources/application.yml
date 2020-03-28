@@ -1,0 +1,15 @@
+server:
+  port: 8080
+security:
+  jwt:
+    #    100 days
+    expirationTime: 8640000000
+    secretKey: sflkj12p4asdifasdfsdfsadfsadfsadfqwer123412
+
+spring.cloud.gateway.routes:
+  - id: user-microservice
+    predicates:
+      - Path=/api/user/**
+    filters:
+      - StripPrefix=1
+    uri: http://localhost:8090
