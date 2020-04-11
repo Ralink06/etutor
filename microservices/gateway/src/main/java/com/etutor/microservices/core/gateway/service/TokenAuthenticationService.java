@@ -1,7 +1,7 @@
 package com.etutor.microservices.core.gateway.service;
 
-import com.etutor.microservices.core.gateway.client.UserClientImpl;
 import com.etutor.microservices.core.gateway.model.User;
+import com.etutor.microservices.core.gateway.client.UserClientImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
