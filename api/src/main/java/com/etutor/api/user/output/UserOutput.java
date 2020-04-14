@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserOutput {
 
+    private final String id;
     private final String firstName;
     private final String lastName;
     private final String email;

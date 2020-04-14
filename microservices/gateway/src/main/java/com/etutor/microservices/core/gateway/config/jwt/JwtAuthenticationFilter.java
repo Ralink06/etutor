@@ -50,7 +50,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) {
         tokenAuthenticationService.addAuthenticationHeader(res, auth);
-
-        log.info("Authentication successful <{}>", ((User) auth.getPrincipal()).getUsername());
     }
 }

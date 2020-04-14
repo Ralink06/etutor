@@ -1,2 +1,10 @@
 server:
   port: 8090
+spring:
+  data:
+    mongodb:
+      username: etutor
+      password: rotute
+      port: 27017
+      host: localhost
+      authentication-database: admin

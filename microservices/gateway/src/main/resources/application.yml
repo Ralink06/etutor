@@ -6,10 +6,21 @@ security:
     expirationTime: 8640000000
     secretKey: sflkj12p4asdifasdfsdfsadfsadfsadfqwer123412
 
-spring.cloud.gateway.routes:
-  - id: user-microservice
-    predicates:
-      - Path=/api/user/**
-    filters:
-      - StripPrefix=1
-    uri: http://localhost:8090
+zuul:
+  prefix: /api
+  routes:
+    user_app:
+      path: /user/**
+      serviceId: user_app
+      strip-prefix: false
+microservices:
+  user:
+    url: http://localhost:8090
+
+user_app:
+  ribbon:
+    listOfServers: http://localhost:8090
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG

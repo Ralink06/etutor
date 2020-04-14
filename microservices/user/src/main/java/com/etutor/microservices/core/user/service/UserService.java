@@ -8,6 +8,4 @@ import java.util.Optional;
 public interface UserService {
 
     UserSnapshot createUser(CreateUserInput input);
-
-    Optional<UserSnapshot> getByUsername(String username);
 }

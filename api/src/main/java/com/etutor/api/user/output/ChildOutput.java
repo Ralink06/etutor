@@ -9,10 +9,11 @@ import java.time.LocalDate;
 @Getter
 @Builder
 @AllArgsConstructor
-class ChildOutput {
+public class ChildOutput {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private LocalDate dateOfBirth;
+    private final String id;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final LocalDate dateOfBirth;
 }

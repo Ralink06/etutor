@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public UserSnapshot createUser(CreateUserInput input) {
         List<User> children = userRepository.saveAll(input.getChildren().stream()
                 .map(userFactory::createChild)
@@ -34,11 +33,5 @@ public class UserServiceImpl implements UserService {
         User parent = userFactory.create(input, children);
 
         return userRepository.save(parent).toSnapshot();
-    }
-
-    @Override
-    public Optional<UserSnapshot> getByUsername(String username) {
-        return userRepository.findByEmail(username)
-                .map(User::toSnapshot);
     }
 }

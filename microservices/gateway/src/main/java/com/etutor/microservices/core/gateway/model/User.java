@@ -1,5 +1,6 @@
 package com.etutor.microservices.core.gateway.model;
 
+import com.etutor.api.user.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 @Setter
 public class User implements UserDetails {
 
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
     private String password;

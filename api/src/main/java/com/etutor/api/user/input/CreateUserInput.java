@@ -1,15 +1,15 @@
 package com.etutor.api.user.input;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateUserInput {
-
 
     private String firstName;
     private String lastName;

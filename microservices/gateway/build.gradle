@@ -18,10 +18,6 @@ group = 'com.etutor.microservices.core.gateway'
 version = '1.0.0-SNAPSHOT'
 sourceCompatibility = 13
 
-ext {
-    springCloudVersion = "Hoxton.RELEASE"
-}
-
 repositories {
     mavenCentral()
 }
@@ -29,21 +25,18 @@ repositories {
 dependencies {
     implementation project(':api')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation ('org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.2.RELEASE')
     implementation('org.springframework.security.oauth:spring-security-oauth2:2.3.5.RELEASE')
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.security:spring-security-jwt:1.0.2.RELEASE')
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
     runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.10.6'
     implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.10.6'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
 }
