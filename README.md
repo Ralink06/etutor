@@ -8,3 +8,7 @@
     NodeJS
         12.16.1
         
+    UI
+        npm install -g @angular/cli 
+        npm install
+        
