@@ -1,11 +1,21 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ModalComponent} from "./modal/modal.component";
+import {LoginModalComponent} from "./modal/login-modal/login-modal.component";
 
 
-const routes: Routes = [];
+const routes: Routes = [{
+  path: 'login',
+  component: ModalComponent,
+  data: {
+    component: LoginModalComponent
+  },
+  outlet: 'modal'
+}];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,  { enableTracing: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
