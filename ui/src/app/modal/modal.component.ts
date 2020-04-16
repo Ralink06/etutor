@@ -1,6 +1,6 @@
-import {Component, Injector, OnDestroy} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-modal',
@@ -19,22 +19,21 @@ export class ModalComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.modal) {
+    if (!this.modal.closed) {
       this.closing = true;
-      this.modal.dismiss();
+      this.modal.close();
       this.modal = null;
     }
   }
 
   private openModal() {
-    console.log(this.activeRoute.snapshot.data.component);
-    this.modal = this.modalService.open(this.activeRoute.snapshot.data.component);
-    const changeLocation = () => {
+    this.modal = this.modalService.open(this.activeRoute.snapshot.data.component, {
+      height: 'auto',
+      width: '600px',
+    }).afterClosed().subscribe(value => {
       if (!this.closing) {
         this.router.navigate([{outlets: {modal: null}}]);
       }
-    };
-    this.modal.result.then(changeLocation, changeLocation);
+    });
   }
-
 }

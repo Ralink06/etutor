@@ -8,11 +8,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class LoginModalComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<LoginModalComponent>) {}
+  hide: boolean = true;
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+  constructor() {}
+
 
   ngOnInit(): void {
   }
