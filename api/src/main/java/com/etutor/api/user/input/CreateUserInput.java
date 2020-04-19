@@ -16,5 +16,4 @@ public class CreateUserInput {
     private String password;
     private String email;
     private LocalDate dateOfBirth;
-    private List<ChildInput> children;
 }

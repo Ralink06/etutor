@@ -40,6 +40,7 @@ public class User {
     private String lastName;
 
     //    @NotNull TODO: password is required when role equals ADULT
+    @Size(min = UserConstants.PASSWORD_MIN_LENGTH, max = UserConstants.PASSWORD_MAX_LENGTH)
     private String password;
 
     @NotNull

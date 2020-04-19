@@ -6,3 +6,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-form-field {
+  padding-bottom: 0.5rem;
+}
+
+.mat-app-background {
+  height: calc(100% - 48px);
+}
+
+.clickable {
+  cursor: pointer;
+}

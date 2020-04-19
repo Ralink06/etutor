@@ -1,10 +1,15 @@
-<div class="row m-0">
-  <div class="col-12 col-sm-6">
-    <div class="mat-h1 m-2">ETUTOR</div>
-  </div>
-  <div class="col-12 col-sm-6 d-flex justify-content-end">
-    <span class="mat-h3 align-self-center mb-0 mx-2">Join</span>
-    <span class="mat-h3 align-self-center mb-0 mx-2"
-          [routerLink]="['/', {outlets: { modal: ['login'] } } ]">Login</span>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="mat-h1 m-2">ETUTOR</div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="d-flex justify-content-end h-100">
+          <span class="mat-h3 align-self-center mb-0 mx-2 clickable"
+                [routerLink]="['/', {outlets: { modal: ['registration'] } } ]">Join</span>
+        <span class="mat-h3 align-self-center mb-0 mx-2 clickable"
+              [routerLink]="['/', {outlets: { modal: ['login'] } } ]">Login</span>
+      </div>
+    </div>
   </div>
 </div>

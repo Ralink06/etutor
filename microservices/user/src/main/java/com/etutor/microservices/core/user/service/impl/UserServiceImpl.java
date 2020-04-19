@@ -26,11 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
 //    @Transactional
     public UserSnapshot createUser(CreateUserInput input) {
-        List<User> children = userRepository.saveAll(input.getChildren().stream()
-                .map(userFactory::createChild)
-                .collect(Collectors.toList()));
-
-        User parent = userFactory.create(input, children);
+        User parent = userFactory.create(input);
 
         return userRepository.save(parent).toSnapshot();
     }

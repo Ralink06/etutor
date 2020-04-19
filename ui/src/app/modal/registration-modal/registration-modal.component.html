@@ -1,0 +1,44 @@
+<form [formGroup]="form" novalidate>
+  <h1 mat-dialog-title class="text-center">Registration</h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>First name</mat-label>
+        <input matInput autocomplete="off" formControlName="firstName">
+        <mat-error app-validation-message [control]="form.controls['firstName']"></mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Last name</mat-label>
+        <input matInput autocomplete="off" formControlName="lastName">
+        <mat-error app-validation-message [control]="form.controls['lastName']"></mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Email</mat-label>
+        <input matInput autocomplete="off"  formControlName="email">
+        <mat-error app-validation-message [control]="form.controls['email']"></mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" autocomplete="off" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error app-validation-message [control]="form.controls['password']"></mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error app-validation-message [control]="form.controls['dateOfBirth']"></mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions class="justify-content-end">
+    <button mat-raised-button color="primary" type="submit" (submitForm)="register()"
+            [validateForm]="form">Submit
+    </button>
+    <button mat-dialog-close mat-button>Cancel</button>
+  </div>
+</form>

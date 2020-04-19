@@ -1,6 +1,5 @@
 package com.etutor.microservices.core.user.controller;
 
-import com.etutor.api.user.input.ChildInput;
 import com.etutor.api.user.input.CreateUserInput;
 import com.etutor.microservices.core.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,19 +33,12 @@ public class UserControllerPOSTcreateUser {
     @Test
     public void shouldCreateNewUser() throws Exception {
         //given
-        ChildInput childInput = ChildInput.builder()
-                .firstName("Junior")
-                .lastName("Bravo")
-                .dateOfBirth(LocalDate.of(2020, 1, 1))
-                .build();
-
         CreateUserInput createUserInput = CreateUserInput.builder()
                 .firstName("Johny")
                 .lastName("Bravo")
                 .email("correct@email.com")
                 .dateOfBirth(LocalDate.of(1995, 11, 15))
                 .password("password")
-                .children(Collections.singletonList(childInput))
                 .build();
 
         //when
@@ -57,6 +49,6 @@ public class UserControllerPOSTcreateUser {
 
         //then
         result.andExpect(status().isOk());
-        assertThat(userRepository.count()).isEqualTo(2);
+        assertThat(userRepository.count()).isEqualTo(1);
     }
 }
