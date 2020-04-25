@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../service/user-service/user.service";
-import { UserLogin} from "../../model/user/user";
+import {UserLogin} from "../../model/user/user";
 import {MatDialogRef} from "@angular/material/dialog";
+import {NotificationService} from "../../service/notification-service/notification.service";
 
 @Component({
   selector: 'app-login-modal',
@@ -16,7 +17,8 @@ export class LoginModalComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private dialogRef: MatDialogRef<any>) {
+              private dialogRef: MatDialogRef<any>,
+              private notificationService: NotificationService) {
   }
 
 
@@ -39,7 +41,11 @@ export class LoginModalComponent implements OnInit {
       };
 
       this.userService.login(input)
-        .subscribe(value => this.dialogRef.close('logged'));
+        .subscribe(value => {
+            this.dialogRef.close();
+            this.notificationService.openSnackBar("You logged in successfully");
+          }
+        );
     }
   }
 }

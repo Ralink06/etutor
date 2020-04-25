@@ -11,3 +11,11 @@ export interface UserLogin {
   password: string;
   username: string;
 }
+
+export interface LoggedUser {
+
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: Date;
+}

@@ -39,8 +39,16 @@ public class UserController {
                 .orElseThrow(ResourceNotFoundException::new);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserOutput> findByHeaderUserId(@RequestHeader("authentication-userid") final String userId) {
+        return userSnapshotFinder.findById(userId)
+                .map(UserOutputMapper::convert)
+                .map(ResponseEntity::ok)
+                .orElseThrow(ResourceNotFoundException::new);
+    }
+
     @GetMapping("/auth/{username}")
-    public ResponseEntity<UserAuthOutput> findByUsername(@PathVariable String username) {
+    public ResponseEntity<UserAuthOutput> findAuthInfoByUsername(@PathVariable String username) {
         return userSnapshotFinder.findByUsername(username)
                 .map(UserAuthOutputMapper::convert)
                 .map(ResponseEntity::ok)

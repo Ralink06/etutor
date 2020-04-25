@@ -18,3 +18,14 @@ mat-form-field {
 .clickable {
   cursor: pointer;
 }
+
+.success-dialog {
+  background-color: mat-color($mat-pink, A400)
+}
+
+.success-dialog {
+  .mat-simple-snackbar {
+    font-size: large;
+    justify-content: center;
+  }
+}

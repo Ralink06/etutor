@@ -19,7 +19,7 @@ public class UserSnapshotFinder {
     public Optional<UserSnapshot> findByUsername(String username) {
         return userRepository.findByEmail(username)
                 .map(User::toSnapshot);
-    }    
+    }
     
     public Optional<UserSnapshot> findById(String id) {
         return userRepository.findById(id)

@@ -22,7 +22,6 @@ public class UserClientImpl implements UserClient {
 
     @Override
     public Optional<User> getByUsername(final String username) {
-        //TODO replace URL when USER APP will be available
         return Optional.ofNullable(restTemplate.getForObject(userServiceUrl + "/user/auth/" + username, User.class));
     }
 }
