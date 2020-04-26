@@ -18,7 +18,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,11 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
 
-        JwtAuthenticationContextFilter jJwtAuthenticationContextFilter = new JwtAuthenticationContextFilter(tokenAuthenticationService);
+        JwtAuthenticationContextFilter jwtAuthenticationContextFilter = new JwtAuthenticationContextFilter(tokenAuthenticationService);
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(tokenAuthenticationService);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager());
-        http.addFilterBefore(jJwtAuthenticationContextFilter, UsernamePasswordAuthenticationFilter.class)
+        http.addFilterBefore(jwtAuthenticationContextFilter, UsernamePasswordAuthenticationFilter.class)
                 //check the presence of JWT in header
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }

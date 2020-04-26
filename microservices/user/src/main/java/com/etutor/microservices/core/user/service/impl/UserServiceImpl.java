@@ -6,11 +6,9 @@ import com.etutor.microservices.core.user.model.entity.User;
 import com.etutor.microservices.core.user.model.snapshot.UserSnapshot;
 import com.etutor.microservices.core.user.repository.UserRepository;
 import com.etutor.microservices.core.user.service.UserService;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -24,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @Transactional
+    //@Transactional
     public UserSnapshot createUser(CreateUserInput input) {
         User parent = userFactory.create(input);
 

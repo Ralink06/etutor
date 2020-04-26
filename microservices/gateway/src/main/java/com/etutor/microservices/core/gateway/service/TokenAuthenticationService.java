@@ -1,18 +1,23 @@
 package com.etutor.microservices.core.gateway.service;
 
-import com.etutor.microservices.core.gateway.model.User;
 import com.etutor.microservices.core.gateway.client.UserClientImpl;
-import io.jsonwebtoken.*;
+import com.etutor.microservices.core.gateway.model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import java.util.Date;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -38,10 +43,10 @@ public class TokenAuthenticationService {
     public void addAuthenticationHeader(final HttpServletResponse res, final Authentication authentication) {
 
         String jwt = Jwts.builder()
-                .setSubject(authentication.getName())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
+            .setSubject(authentication.getName())
+            .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+            .signWith(SignatureAlgorithm.HS512, secret)
+            .compact();
 
         res.addHeader(HEADER_NAME, TOKEN_PREFIX + " " + jwt);
     }
@@ -49,8 +54,8 @@ public class TokenAuthenticationService {
     public Authentication getAuthentication(final HttpServletRequest request) {
         String token = request.getHeader(HEADER_NAME);
         if (token == null
-                || token.isEmpty()
-                || token.trim().isEmpty()) {
+            || token.isEmpty()
+            || token.trim().isEmpty()) {
             return null;
         }
         String username = getUsername(token);
@@ -75,9 +80,9 @@ public class TokenAuthenticationService {
 
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody();
+                .setSigningKey(secret)
+                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                .getBody();
             username = claims.getSubject();
         } catch (final ExpiredJwtException e) {
             log.info("Failed to parse JWT because of ExpiredJwtException <{}>", e.getMessage());

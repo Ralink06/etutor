@@ -3,9 +3,8 @@ package com.etutor.microservices.core.user.finder;
 import com.etutor.microservices.core.user.model.entity.User;
 import com.etutor.microservices.core.user.model.snapshot.UserSnapshot;
 import com.etutor.microservices.core.user.repository.UserRepository;
-import org.springframework.stereotype.Component;
-
 import java.util.Optional;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserSnapshotFinder {

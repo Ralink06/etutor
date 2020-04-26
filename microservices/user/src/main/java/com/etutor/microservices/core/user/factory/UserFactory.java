@@ -3,14 +3,16 @@ package com.etutor.microservices.core.user.factory;
 import com.etutor.api.user.Role;
 import com.etutor.api.user.input.CreateUserInput;
 import com.etutor.microservices.core.user.model.entity.User;
+
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-
 @Component
 public class UserFactory {
-
+ó
     private final PasswordEncoder passwordEncoder;
 
     public UserFactory(PasswordEncoder passwordEncoder) {

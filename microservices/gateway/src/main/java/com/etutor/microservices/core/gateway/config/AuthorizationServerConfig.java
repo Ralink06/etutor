@@ -25,8 +25,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private static final String SCOPE_WRITE = "write";
     private static final String TRUST = "trust";
     //60 seconds x 60 minutes
-    private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1*60*60;
-    private static final int FREFRESH_TOKEN_VALIDITY_SECONDS = 6*60*60;
+    private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1 * 60 * 60;
+    private static final int FREFRESH_TOKEN_VALIDITY_SECONDS = 6 * 60 * 60;
 
     private final AuthenticationManager authenticationManager;
 
@@ -50,19 +50,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(final ClientDetailsServiceConfigurer configurer) throws Exception {
 
         configurer
-                .inMemory()
-                .withClient(CLIEN_ID)
-                .secret(CLIENT_SECRET)
-                .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN, IMPLICIT )
-                .scopes(SCOPE_READ, SCOPE_WRITE, TRUST)
-                .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS).
-                refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS);
+            .inMemory()
+            .withClient(CLIEN_ID)
+            .secret(CLIENT_SECRET)
+            .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN, IMPLICIT)
+            .scopes(SCOPE_READ, SCOPE_WRITE, TRUST)
+            .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS)
+            .refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS);
     }
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore())
-                .authenticationManager(authenticationManager)
-                .accessTokenConverter(accessTokenConverter());
+        endpoints
+            .tokenStore(tokenStore())
+            .authenticationManager(authenticationManager)
+            .accessTokenConverter(accessTokenConverter());
     }
 }

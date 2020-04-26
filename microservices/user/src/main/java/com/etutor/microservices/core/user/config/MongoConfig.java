@@ -1,15 +1,14 @@
 package com.etutor.microservices.core.user.config;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class MongoConfig {
