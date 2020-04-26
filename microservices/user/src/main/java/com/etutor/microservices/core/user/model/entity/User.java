@@ -1,9 +1,19 @@
 package com.etutor.microservices.core.user.model.entity;
 
-
 import com.etutor.api.user.Role;
 import com.etutor.microservices.core.user.model.UserConstants;
 import com.etutor.microservices.core.user.model.snapshot.UserSnapshot;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,14 +21,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.validation.constraints.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Getter
@@ -64,18 +66,18 @@ public class User {
 
     public UserSnapshot toSnapshot() {
         List<UserSnapshot> children = this.children.stream()
-                .map(User::toSnapshot)
-                .collect(Collectors.toList());
+            .map(User::toSnapshot)
+            .collect(Collectors.toList());
 
         return UserSnapshot.builder()
-                .id(this.id)
-                .firstName(this.firstName)
-                .lastName(this.lastName)
-                .password(this.password)
-                .active(this.active)
-                .email(this.email)
-                .roles(this.roles)
-                .children(children)
-                .build();
+            .id(this.id)
+            .firstName(this.firstName)
+            .lastName(this.lastName)
+            .password(this.password)
+            .active(this.active)
+            .email(this.email)
+            .roles(this.roles)
+            .children(children)
+            .build();
     }
 }

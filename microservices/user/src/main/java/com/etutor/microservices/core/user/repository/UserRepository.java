@@ -1,9 +1,8 @@
 package com.etutor.microservices.core.user.repository;
 
 import com.etutor.microservices.core.user.model.entity.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
-
 import java.util.Optional;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, String> {
 

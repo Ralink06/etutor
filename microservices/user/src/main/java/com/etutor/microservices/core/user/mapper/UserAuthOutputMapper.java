@@ -2,7 +2,6 @@ package com.etutor.microservices.core.user.mapper;
 
 import com.etutor.api.user.output.auth.UserAuthOutput;
 import com.etutor.microservices.core.user.model.snapshot.UserSnapshot;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
