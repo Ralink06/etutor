@@ -4,14 +4,14 @@ import com.etutor.microservices.core.gateway.model.User;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import java.util.Objects;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 @Component
 public class CustomZuulFilter extends ZuulFilter {
+
     @Override
     public String filterType() {
         return FilterConstants.ROUTE_TYPE;
@@ -31,7 +31,7 @@ public class CustomZuulFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext requestContext = RequestContext.getCurrentContext();
         requestContext.addZuulRequestHeader("Authentication-userId",
-                ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+            ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
         return null;
     }
 }

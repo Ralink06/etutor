@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserOutput> createUser(@RequestBody final CreateUserInput createUserInput) {
+    public ResponseEntity<UserOutput> createUser(
+        @RequestBody final CreateUserInput createUserInput) {
         UserSnapshot userSnapshot = userService.createUser(createUserInput);
 
         return ResponseEntity.ok(UserOutputMapper.convert(userSnapshot));
@@ -39,24 +41,25 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserOutput> findById(@PathVariable final String userId) {
         return userSnapshotFinder.findById(userId)
-                .map(UserOutputMapper::convert)
-                .map(ResponseEntity::ok)
-                .orElseThrow(ResourceNotFoundException::new);
+            .map(UserOutputMapper::convert)
+            .map(ResponseEntity::ok)
+            .orElseThrow(ResourceNotFoundException::new);
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserOutput> findByHeaderUserId(@RequestHeader("authentication-userid") final String userId) {
+    public ResponseEntity<UserOutput> findByHeaderUserId(
+        @RequestHeader("authentication-userid") final String userId) {
         return userSnapshotFinder.findById(userId)
-                .map(UserOutputMapper::convert)
-                .map(ResponseEntity::ok)
-                .orElseThrow(ResourceNotFoundException::new);
+            .map(UserOutputMapper::convert)
+            .map(ResponseEntity::ok)
+            .orElseThrow(ResourceNotFoundException::new);
     }
 
     @GetMapping("/auth/{username}")
     public ResponseEntity<UserAuthOutput> findAuthInfoByUsername(@PathVariable String username) {
         return userSnapshotFinder.findByUsername(username)
-                .map(UserAuthOutputMapper::convert)
-                .map(ResponseEntity::ok)
-                .orElseThrow(ResourceNotFoundException::new);
+            .map(UserAuthOutputMapper::convert)
+            .map(ResponseEntity::ok)
+            .orElseThrow(ResourceNotFoundException::new);
     }
 }
