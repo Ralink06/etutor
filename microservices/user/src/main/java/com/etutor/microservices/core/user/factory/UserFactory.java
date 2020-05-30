@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserFactory {
-ó
+
     private final PasswordEncoder passwordEncoder;
 
     public UserFactory(PasswordEncoder passwordEncoder) {
