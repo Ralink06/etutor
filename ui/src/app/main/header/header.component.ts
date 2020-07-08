@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../service/user-service/user.service";
 import {LoggedUser} from "../../model/user/user";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -8,24 +9,16 @@ import {LoggedUser} from "../../model/user/user";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  loading: boolean = false;
-  loggedUser: LoggedUser = null;
+  loggedUser: BehaviorSubject<LoggedUser> = this.userService.currentUserSubject;
+  isAuthenticatedEnded: BehaviorSubject<boolean> = this.userService.isAuthenticationEnded;
 
-  constructor(private userService: UserService) {
-
-    userService.retriveUser()
-      .subscribe(user => {
-        this.loggedUser = user;
-      });
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.userLogged
-      .subscribe(user => this.loggedUser = user);
   }
 
   logout() {
-    this.loggedUser = null;
+    // this.loggedUser = null;
     this.userService.logout();
   }
 }

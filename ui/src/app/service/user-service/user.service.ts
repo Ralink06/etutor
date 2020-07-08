@@ -1,7 +1,7 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {CreateUser, LoggedUser, UserLogin} from "../../model/user/user";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 
 @Injectable({
@@ -10,23 +10,23 @@ import {map} from "rxjs/operators";
 export class UserService {
   private tokenKey = 'token';
   private authorizationKey = 'Authorization';
-  private currentUser: Observable<LoggedUser> = null;
 
-  userLogged: EventEmitter<LoggedUser> = new EventEmitter<LoggedUser>();
+  public currentUserSubject = new BehaviorSubject<LoggedUser>(null);
+  public isAuthenticationEnded = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
-  }
-
-  public retriveUser(): Observable<LoggedUser> {
     const token = localStorage.getItem(this.tokenKey);
     if (!token) {
-      this.userLogged.emit(null);
-      return new Observable<LoggedUser>();
+      this.currentUserSubject.next(null);
+      this.isAuthenticationEnded.next(true);
+      return;
     }
-    if (!this.currentUser) {
-      return this.getUser(token);
+    if (!this.currentUserSubject.getValue()) {
+      this.getUser(token).subscribe(user => {
+        this.currentUserSubject.next(user);
+        this.isAuthenticationEnded.next(true);
+      })
     }
-    return this.currentUser;
   }
 
   public register(input: CreateUser): Observable<HttpResponse<any>> {
@@ -36,19 +36,18 @@ export class UserService {
   public login(input: UserLogin): any {
     return this.http.post<any>('/api/login', input, {observe: 'response' as 'body'}).pipe(
       map((res: Response) => {
-        this.currentUser = this.getUser(res.headers.get(this.authorizationKey));
-        this.currentUser
-          .subscribe(user => {
-            localStorage.setItem(this.tokenKey, res.headers.get(this.authorizationKey))
-            this.userLogged.emit(user);
-          })
+        this.getUser(res.headers.get(this.authorizationKey))
+        .subscribe(user => {
+          localStorage.setItem(this.tokenKey, res.headers.get(this.authorizationKey))
+          this.currentUserSubject.next(user);
+          this.isAuthenticationEnded.next(true);
+        })
       })
     );
   }
 
   public logout() {
-    this.userLogged.emit(null);
-    this.currentUser = null;
+    this.currentUserSubject.next(null);
     localStorage.removeItem(this.tokenKey);
   }
 

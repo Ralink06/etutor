@@ -5,19 +5,20 @@
     </div>
     <div class="col-12 col-sm-6">
       <div class="d-flex justify-content-end h-100">
-        <ng-template [ngIf]="!loading" [ngIfElse]="loadingTemplate">
-          <ng-template [ngIf]="loggedUser" [ngIfElse]="loggedTemplate">
-          <span class="mat-h3 align-self-center mb-0 mx-2">Hello <span
+        <div  class="align-self-center" *ngIf="(isAuthenticatedEnded | async); else loadingTemplate">
+          <div *ngIf="(loggedUser | async) as loggedUser; else notLoggedTemplate">
+          <span class="mat-h3 mb-0 mx-2">Hello <span
             class="clickable">{{loggedUser.firstName}} {{loggedUser.lastName}}</span></span>
-            <span class="mat-h3 align-self-center mb-0 mx-2 clickable" (click)="logout()">Logout</span>
-          </ng-template>
-          <ng-template #loggedTemplate>
-          <span class="mat-h3 align-self-center mb-0 mx-2 clickable"
-                [routerLink]="['/', {outlets: { modal: ['registration'] } } ]">Join</span>
+            <span class="mat-h3 mb-0 mx-2 clickable"
+                  (click)="logout()">Logout</span>
+          </div>
+          <ng-template #notLoggedTemplate>
+            <span class="mat-h3 align-self-center mb-0 mx-2 clickable"
+                  [routerLink]="['/', {outlets: { modal: ['registration'] } } ]">Join</span>
             <span class="mat-h3 align-self-center mb-0 mx-2 clickable"
                   [routerLink]="['/', {outlets: { modal: ['login'] } } ]">Login</span>
           </ng-template>
-        </ng-template>
+        </div>
         <ng-template #loadingTemplate class="d-flex justify-content-end h-100">
           <mat-spinner class="align-self-center" [diameter]="40" [color]="'primary'"></mat-spinner>
         </ng-template>

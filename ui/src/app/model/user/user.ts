@@ -12,7 +12,7 @@ export interface UserLogin {
   username: string;
 }
 
-export interface LoggedUser {
+export class LoggedUser {
 
   firstName: string;
   lastName: string;
