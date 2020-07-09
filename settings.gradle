@@ -6,3 +6,7 @@ project(':microservices:gateway').projectDir = file('microservices/gateway')
 
 include ':microservices:user'
 project(':microservices:user').projectDir = file('microservices/user')
+
+include ':microservices:mail-service'
+project(':microservices:mail-service').projectDir = file('microservices/mail-service')
+

@@ -9,6 +9,18 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+  rabbitmq:
+    image: rabbitmq:3.7.8-management
+    restart: always
+    mem_limit: 350m
+    networks:
+      - my-network
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
 
 volumes:
   mongodb_data_container:
