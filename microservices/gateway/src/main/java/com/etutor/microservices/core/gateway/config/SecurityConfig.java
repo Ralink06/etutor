@@ -35,8 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final TokenAuthenticationService tokenAuthenticationService;
 
-    public SecurityConfig(@Qualifier("userServiceCustomImplementation") final UserDetailsService userDetailsService,
-                          final TokenAuthenticationService tokenAuthenticationService) {
+    public SecurityConfig(
+        @Qualifier("userServiceCustomImplementation") final UserDetailsService userDetailsService,
+        final TokenAuthenticationService tokenAuthenticationService) {
         this.userDetailsService = userDetailsService;
         this.tokenAuthenticationService = tokenAuthenticationService;
     }
@@ -50,29 +51,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
-                .passwordEncoder(encoder());
+            .passwordEncoder(encoder());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/user").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/user/**").permitAll()
-                .anyRequest()
-                .authenticated();
+            .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/user").permitAll()
+            .anyRequest().authenticated();
 
-        JwtAuthenticationContextFilter jwtAuthenticationContextFilter = new JwtAuthenticationContextFilter(tokenAuthenticationService);
-        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(tokenAuthenticationService);
+
+        JwtAuthenticationContextFilter jwtAuthenticationContextFilter = new JwtAuthenticationContextFilter(
+            tokenAuthenticationService);
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
+            tokenAuthenticationService);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager());
-        http.addFilterBefore(jwtAuthenticationContextFilter, UsernamePasswordAuthenticationFilter.class)
-                //check the presence of JWT in header
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationContextFilter,
+            UsernamePasswordAuthenticationFilter.class)
+            //check the presence of JWT in header
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

@@ -2,9 +2,8 @@ server:
   port: 1001
 spring:
   mail:
-    default-encoding: UTF-8
     host: smtp.gmail.com
-    username: sportEventApplication@gmail.com
+    username: sporteventapplication@gmail.com
     password: passwordpassword
     port: 587
     properties:
@@ -13,5 +12,15 @@ spring:
           auth: true
           starttls:
             enable: true
-    protocol: smtp
-    test-connection: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+spring.cloud.stream:
+  defaultBinder: rabbit
+  default.contentType: application/json
+  bindings:
+    user-input:
+      destination: user.registration
+      group: userGroup

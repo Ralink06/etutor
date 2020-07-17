@@ -8,3 +8,16 @@ spring:
       port: 27017
       host: localhost
       authentication-database: admin
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+spring.cloud.stream:
+  defaultBinder: rabbit
+  default.contentType: application/json
+  bindings:
+    user-output:
+      destination: user.registration
+      producer:
+        required-groups: auditGroup

@@ -22,8 +22,7 @@ public class UserOutputMapper {
                 .dateOfBirth(userSnapshot.getDateOfBirth())
                 .build();
     }
-    
-    
+
     private static ChildOutput convertChild(final UserSnapshot userSnapshot) {
         return ChildOutput.builder()
                 .id(userSnapshot.getId())

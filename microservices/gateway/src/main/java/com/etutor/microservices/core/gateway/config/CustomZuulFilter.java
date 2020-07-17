@@ -3,9 +3,8 @@ package com.etutor.microservices.core.gateway.config;
 import com.etutor.microservices.core.gateway.model.User;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
-import java.util.Objects;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +23,12 @@ public class CustomZuulFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return Objects.nonNull(SecurityContextHolder.getContext().getAuthentication());
+        return !(SecurityContextHolder.getContext().getAuthentication()
+            instanceof AnonymousAuthenticationToken);
     }
 
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
         RequestContext requestContext = RequestContext.getCurrentContext();
         requestContext.addZuulRequestHeader("Authentication-userId",
             ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());

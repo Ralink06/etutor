@@ -1,9 +1,11 @@
 package com.etutor.microservices.core.mail.service;
 
 import com.etutor.microservices.core.mail.model.Mail;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+@Component
 public class EmailSender {
 
     private final EmailService emailService;
