@@ -1,5 +1,14 @@
 @import "src/styles.scss";
 
 .row {
-  background-color: mat-color($mat-pink, A400)
+  background-color: mat-color($mat-deep-purple, A400);
+  color: white;
+}
+
+.mat-menu-item .mat-icon {
+  vertical-align: baseline !important;
+}
+.mat-icon {
+  height: auto;
+  width: auto;
 }

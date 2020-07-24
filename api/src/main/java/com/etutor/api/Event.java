@@ -1,42 +1,21 @@
 package com.etutor.api;
 
-import static java.time.LocalDateTime.now;
-
 import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 
-public class Event<K, T> {
+@NoArgsConstructor
+public class Event<K> {
 
-    public enum Type { CREATED, DELETED, UPDATED }
-
-    private Event.Type eventType;
     private K key;
-    private T data;
     private LocalDateTime createdAt;
 
-    public Event() {
-        this.eventType = null;
-        this.key = null;
-        this.data = null;
-        this.createdAt = null;
-    }
-
-    public Event(Type eventType, K key, T data) {
-        this.eventType = eventType;
+    public Event(K key, LocalDateTime now) {
         this.key = key;
-        this.data = data;
-        this.createdAt = now();
-    }
-
-    public Type getEventType() {
-        return eventType;
+        this.createdAt = now;
     }
 
     public K getKey() {
         return key;
-    }
-
-    public T getData() {
-        return data;
     }
 
     public LocalDateTime getEventCreatedAt() {

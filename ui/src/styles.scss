@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap";
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~@angular/material/theming';
 @include mat-core();
 
@@ -12,6 +13,7 @@ mat-form-field {
 }
 
 .mat-app-background {
+  min-height: calc(100vh - 48px);
   height: calc(100% - 48px);
 }
 
@@ -20,7 +22,7 @@ mat-form-field {
 }
 
 .success-dialog {
-  background-color: mat-color($mat-pink, A400)
+  background-color: mat-color($mat-deep-purple, A400)
 }
 
 .success-dialog {
@@ -28,4 +30,18 @@ mat-form-field {
     font-size: large;
     justify-content: center;
   }
+}
+
+button:focus, span:focus {
+  outline: 0 !important;
+}
+
+//header
+.cdk-overlay-connected-position-bounding-box {
+  top: 48px !important;
+}
+
+//loader
+.mat-progress-bar {
+  height: 7px !important;
 }

@@ -21,10 +21,15 @@ import {UserService} from "./service/user-service/user.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ValidationMessageComponent} from './shared/validation/validation-message/validation-message.component';
 import {ValidationFormDirective} from './shared/validation/validation-form/validation-form.directive';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NotificationService} from "./service/notification-service/notification.service";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ProfileComponent} from './main/user/profile/profile.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {HttpInterceptorService} from "./interceptor/http-interceptor.service";
+import { HomeComponent } from './main/home/home.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     LoginModalComponent,
     RegistrationModalComponent,
     ValidationMessageComponent,
-    ValidationFormDirective
+    ValidationFormDirective,
+    ProfileComponent,
+    HomeComponent
   ],
   imports: [
     RouterModule,
@@ -52,13 +59,20 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatNativeDateModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatProgressBarModule
   ],
   entryComponents: [LoginModalComponent, RegistrationModalComponent],
   providers: [
     NotificationService,
     UserService,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,16 +1,29 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-sm-6">
-      <div class="mat-h1 m-2">ETUTOR</div>
+      <div class="mat-h1 m-2">
+        <span class="clickable" [routerLink]="['/']">eTutor</span>
+      </div>
     </div>
     <div class="col-12 col-sm-6">
       <div class="d-flex justify-content-end h-100">
-        <div  class="align-self-center" *ngIf="(isAuthenticatedEnded | async); else loadingTemplate">
+        <div class="align-self-center" *ngIf="(isAuthenticatedEnded | async); else loadingTemplate">
           <div *ngIf="(loggedUser | async) as loggedUser; else notLoggedTemplate">
-          <span class="mat-h3 mb-0 mx-2">Hello <span
-            class="clickable">{{loggedUser.firstName}} {{loggedUser.lastName}}</span></span>
-            <span class="mat-h3 mb-0 mx-2 clickable"
-                  (click)="logout()">Logout</span>
+            <span
+              class="mat-h3 mb-0 mx-2">Hello <span>{{loggedUser.firstName}} {{loggedUser.lastName}}</span></span>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon fontSet="fa" fontIcon="fa-chevron-down"></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="mw-100">
+              <button mat-menu-item [routerLink]="['/profile']">
+                <mat-icon fontSet="fa" fontIcon="fa-user-alt"></mat-icon>
+                <span>Profile</span>
+              </button>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon fontSet="fa" fontIcon="fa-sign-out-alt"></mat-icon>
+                <span>Logout</span>
+              </button>
+            </mat-menu>
           </div>
           <ng-template #notLoggedTemplate>
             <span class="mat-h3 align-self-center mb-0 mx-2 clickable"

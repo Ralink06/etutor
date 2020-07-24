@@ -24,3 +24,5 @@ spring.cloud.stream:
     user-input:
       destination: user.registration
       group: userGroup
+
+user.address: http://localhost:8080

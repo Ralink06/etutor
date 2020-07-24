@@ -1,12 +1,7 @@
 <app-header></app-header>
 <div class="mat-app-background">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 my-5 text-center">
-        CONTENT
-      </div>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
+<mat-progress-bar class="request-loader" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-bar>
 <router-outlet name="modal"></router-outlet>
 

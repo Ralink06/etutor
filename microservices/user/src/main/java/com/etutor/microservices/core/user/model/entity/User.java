@@ -64,6 +64,10 @@ public class User {
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
+    public void activate() {
+        this.active = true;
+    }
+
     public UserSnapshot toSnapshot() {
         List<UserSnapshot> children = this.children.stream()
             .map(User::toSnapshot)

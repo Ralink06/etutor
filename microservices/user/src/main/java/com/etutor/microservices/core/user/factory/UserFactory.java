@@ -24,7 +24,7 @@ public class UserFactory {
             .lastName(input.getLastName())
             .email(input.getEmail())
             .password(password)
-            .active(true)
+            .active(false)
             .roles(Collections.singleton(Role.ADULT))
             .dateOfBirth(input.getDateOfBirth())
             .build();

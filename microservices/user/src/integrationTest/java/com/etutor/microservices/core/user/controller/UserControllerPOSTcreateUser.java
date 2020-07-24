@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.etutor.api.user.input.CreateUserInput;
+import com.etutor.microservices.core.user.repository.ConfirmationTokenRepository;
 import com.etutor.microservices.core.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
@@ -28,6 +29,8 @@ public class UserControllerPOSTcreateUser {
     private ObjectMapper objectMapper;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
 
     @Test
     public void shouldCreateNewUser() throws Exception {

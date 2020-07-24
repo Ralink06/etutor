@@ -43,9 +43,10 @@
   </tr>
   <tr bgcolor="white">
     <td height="100" align="left" style="padding: 40px 200px 40px 200px">
-      Hello <span th:text="${firstName}">FirstName</span> <span th:text="${lastName}">LastName</span>
+      Hello <span th:text="${firstName}">FirstName</span> <span
+        th:text="${lastName}">LastName</span>
       <br/>
-      Your account is now active !
+      <a th:href="@{${serverAddress} +'/api/user/confirmation'(token=${token})}">Activate your account!</a>
       <br/>
       Enjoy !
     </td>
